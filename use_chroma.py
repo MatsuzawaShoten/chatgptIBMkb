@@ -7,7 +7,7 @@ from chromadb.utils import embedding_functions
 openai.api_key = "sk-"
 
 # 元のデータとなるjsonを読み込む
-with open('events_2023.json', 'r', encoding='utf-8') as f:
+with open('minutes_2024.json', 'r', encoding='utf-8') as f:
     events_dict = json.load(f)
 
 formatted_events: list[str] = []
@@ -38,13 +38,13 @@ openai_ef = embedding_functions.OpenAIEmbeddingFunction(
 # 一回作った場合は削除してから
 try:
     client.delete_collection(
-        'events_2023'
+        'minutes_2024'
     )
 except ValueError:
     pass
 
 collection = client.create_collection(
-    'events_2023', embedding_function=openai_ef)
+    'minutes_2024', embedding_function=openai_ef)
 
 # コレクションにデータを追加する。
 collection.add(documents=formatted_events, ids=event_ids)
